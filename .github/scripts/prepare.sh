@@ -6,6 +6,9 @@ cd jaguar
      -DgroupId=br.usp.each.saeg -DartifactId=org.jacoco.core \
      -Dversion=0.7.6 -Dpackaging=jar
      
-./mvnw clean install -Dmaven.test.failure.ignore=true
+./mvnw clean install -pl br.usp.each.saeg.jaguar.maven.plugin -am
+
+./mvnw org.apache.maven.plugins:maven-install-plugin:3.0.0-M1:install-file \
+     -Dfile=./br.usp.each.saeg.jaguar.maven.plugin/target/jaguar-maven-plugin-0.0.1-SNAPSHOT.jar
 
 cd .. 
