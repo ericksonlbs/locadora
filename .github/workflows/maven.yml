@@ -27,6 +27,14 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+        
+    - uses: actions/checkout@v2
+    - name: Run script prepare
+      run: |
+         chmod +x ./github/scripts/prepare.sh
+         ./github/scripts/prepare.sh
+      shell: bash
+      
     - name: Build with Maven
       run: mvn -B package --file pom.xml
             
