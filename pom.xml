@@ -32,7 +32,7 @@
 				<artifactId>jaguar-maven-plugin</artifactId>
 				<version>0.0.1-SNAPSHOT</version>			
 				<executions>
-					<execution>
+					<!-- <execution>
 						<id>Jaguar-DataFlow</id>
 						<goals>
 							<goal>jaguarVerify
@@ -44,7 +44,7 @@
 							<heuristic>Ochiai</heuristic>	
 							<format>HTML</format>
 						</configuration>					
-					</execution>
+					</execution> -->
 					<execution>
 						<id>Jaguar-ControlFlow</id>
 						<goals>
