@@ -71,11 +71,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<testFailureIgnore>true</testFailureIgnore>
-					<dependenciesToScan>
-						<dependency>br.com.caelum:locadora</dependency>
-					</dependenciesToScan>
+				<configuration>				
 					<properties>
 						<property>
 							<name>listener</name>
