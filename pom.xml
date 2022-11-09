@@ -8,6 +8,14 @@
     <artifactId>locadora</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<ba-dua.version>0.7.0</ba-dua.version>
+		<jacoco.version>0.8.7</jacoco.version>
+	</properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -15,51 +23,71 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+
+		<dependency>
+			<groupId>br.usp.each.saeg</groupId>
+			<artifactId>jaguar2-junit</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>br.usp.each.saeg</groupId>
+			<artifactId>jaguar2-jacoco-provider</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>br.usp.each.saeg</groupId>
+			<artifactId>jaguar2-csv-exporter</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+	
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                </configuration>
-            </plugin>
-            <plugin>
-				<groupId>br.usp.each.saeg.jaguar.maven.plugin</groupId>
-				<artifactId>jaguar-maven-plugin</artifactId>
-				<version>0.0.1-SNAPSHOT</version>			
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
 				<executions>
-					<!-- <execution>
-						<id>Jaguar-DataFlow</id>
-						<goals>
-							<goal>jaguarVerify
-							</goal>
-						</goals>	
-						<configuration>		
-							<logLevel>ERROR</logLevel>				
-							<type>DataFlow</type>
-							<heuristic>Ochiai</heuristic>	
-							<format>HTML</format>
-						</configuration>					
-					</execution> -->
 					<execution>
-						<id>Jaguar-ControlFlow</id>
+						<id>prepare-agent</id>
 						<goals>
-							<goal>jaguarVerify
-							</goal>
-						</goals>	
-						<configuration>			
-							<logLevel>ERROR</logLevel>			
-							<type>ControlFlow</type>	
-							<heuristic>Ochiai</heuristic>	
-							<format>XML</format>
-						</configuration>					
-					</execution>				
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
 				</executions>
-			</plugin>	
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+					<dependenciesToScan>
+						<dependency>br.com.caelum:locadora</dependency>
+					</dependenciesToScan>
+					<properties>
+						<property>
+							<name>listener</name>
+							<value>br.usp.each.saeg.jaguar2.junit.JaguarJUnitRunListener</value>
+						</property>
+					</properties>
+					<systemPropertyVariables>
+						<jaguar2.classesDirs>target/classes</jaguar2.classesDirs>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+            
         </plugins>
     </build>
 
