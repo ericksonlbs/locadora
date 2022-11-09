@@ -48,8 +48,8 @@ jobs:
       
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
+      if: failure()
       with:
         name: jaguar
         path: target/jaguar2.csv
-        if: failure()
         retention-days: 5
